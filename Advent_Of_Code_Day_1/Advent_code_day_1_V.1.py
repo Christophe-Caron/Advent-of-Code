@@ -6,21 +6,31 @@ def line_input():
         if line == "":
             break
         lines.append(line)
+    return  lines
 
-    multiline_input = "\n".join(lines)
-    return multiline_input
-
-def splitter(multiline_input):
+def splitter(lines):
+    joined=[]
     left=[]
     right=[]
-    for idx, i in enumerate(multiline_input):
-        if idx%2==0: #checks if it is even, if even, goes in left list
-            left.append(i)
+    for i in lines:
+        temp=''
+        for idx, x in enumerate(i):
+            if x.isdigit():
+                temp+=str(x)
+                if idx==len(i)-1:
+                    joined.append(temp)
+                    continue
+            if i[idx-1].isdigit() and idx!=0 and not x.isdigit():
+                joined.append(temp)
+                temp=''
+    for idx, el in enumerate(joined):
+        if idx%2==0:
+            left.append(el)
         else:
-            right.append(i)
-    print(left)
-    print(right)
+            right.append(el)
     return left,right
 
-line_input()
-splitter(line_input())
+
+left,right=splitter(line_input())
+print(left)
+print(right)
