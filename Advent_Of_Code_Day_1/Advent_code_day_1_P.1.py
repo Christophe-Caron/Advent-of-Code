@@ -25,12 +25,24 @@ def splitter(lines):
                 temp=''
     for idx, el in enumerate(joined):
         if idx%2==0:
-            left.append(el)
+            left.append(int(el))
         else:
-            right.append(el)
+            right.append(int(el))
     return left,right
 
-
-left,right=splitter(line_input())
-print(left)
-print(right)
+def pairing(left,right):
+    difflist=[]
+    print(left)
+    print(right)
+    while left!=[] and right!=[]:
+        small1=min(left)
+        small2=min(right)
+        left.remove(small1)
+        right.remove(small2)
+        diff=abs(small2-small1)
+        difflist.append(diff)
+    return difflist
+lines = line_input()
+left,right=splitter(lines)
+difflist=pairing(left,right)
+print(sum(difflist))
